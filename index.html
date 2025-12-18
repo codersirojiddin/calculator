@@ -150,6 +150,42 @@
             <button class="equal" onclick="calculate()">=</button>
         </div>
     </div>
+    <footer style="
+    margin-left: 260px; 
+    padding: 30px 60px; 
+    background-color: var(--footer-bg); 
+    border-top: 1px solid var(--border); 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    text-align: center;
+    transition: all 0.2s ease;
+">
+    <div class="footer-info" style="
+        color: var(--text-muted); 
+        font-size: 0.95rem; 
+        font-weight: 500;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    ">
+        Founder: <strong style="color: var(--accent);">Sirojiddin Yoqubjonov</strong> | 
+        <a href="mailto:codersirojiddin@gmail.com" style="
+            color: #3694ff; 
+            text-decoration: none; 
+            font-weight: 700;
+        ">codersirojiddin@gmail.com</a>
+    </div>
+</footer>
+
+<style>
+    /* Mobil qurilmalar uchun moslashuvchanlik (Responsive) */
+    @media (max-width: 900px) {
+        footer {
+            margin-left: 80px !important;
+            padding: 20px !important;
+            flex-direction: column;
+        }
+    }
+</style>
 
     <script>
         const display = document.getElementById('display');
@@ -193,3 +229,4 @@
     </script>
 </body>
 </html>
+

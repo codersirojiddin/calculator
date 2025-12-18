@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Creative Calculator</title>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #091921;
+        }
+
+        .calculator {
+            position: relative;
+            width: 340px;
+            padding: 20px;
+            border-radius: 30px;
+            background: #091921;
+            box-shadow: 15px 15px 20px rgba(0,0,0,0.5), 
+                        -15px -15px 20px rgba(255,255,255,0.05);
+        }
+
+        .display-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        #display {
+            width: 100%;
+            height: 80px;
+            background: none;
+            border: none;
+            outline: none;
+            text-align: right;
+            padding: 10px 20px;
+            font-size: 2.5rem;
+            color: #00d2ff; /* Neon ko'k */
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        button {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            border: none;
+            outline: none;
+            background: #091921;
+            color: #eee;
+            font-size: 1.2rem;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 5px 5px 10px rgba(48, 34, 128, 0.719), 
+                        -5px -5px 10px rgba(92, 31, 190, 0.05);
+            transition: 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button:active {
+            box-shadow: inset 5px 5px 10px rgba(0,0,0,0.5), 
+                        inset -5px -5px 10px rgba(255,255,255,0.05);
+            color: #00d2ff;
+            transform: scale(0.95);
+        }
+
+
+        button.operator {
+            color: #00d2ff;
+        }
+
+        button.clear {
+            color: #ff0000;
+        }
+
+        button.equal {
+            grid-column: span 2;
+            width: 135px;
+            background: #00d2ff;
+            color: #091921;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+        }
+
+        button.equal:active {
+            background: #00b8e6;
+        }
+        .calculator::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, #ff3e6c, #00d2ff);
+            z-index: -1;
+            border-radius: 32px;
+            filter: blur(10px);
+            opacity: 0.3;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <div class="display-container">
+            <input type="text" id="display" placeholder="0" readonly>
+        </div>
+        
+        <div class="buttons">
+            <button class="clear" onclick="clearDisplay()">C</button>
+            <button class="operator" onclick="appendToDisplay('/')">/</button>
+            <button class="operator" onclick="appendToDisplay('*')">×</button>
+            <button class="operator" onclick="deleteLast()">⌫</button>
+            
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button class="operator" onclick="appendToDisplay('-')">−</button>
+            
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button class="operator" onclick="appendToDisplay('+')">+</button>
+            
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('00')">00</button>
+            <button class="equal" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('display');
+
+        function appendToDisplay(input) {
+            if(display.value === "Error") display.value = "";
+            display.value += input;
+        }
+
+        function clearDisplay() {
+            display.value = "";
+        }
+
+        function deleteLast() {
+            display.value = display.value.slice(0, -1);
+        }
+
+        function calculate() {
+            try {
+
+                let result = eval(display.value);
+                
+                if (result % 1 !== 0) {
+                    result = result.toFixed(4);
+                }
+                
+                display.value = result;
+            } catch (error) {
+                display.value = "Error";
+                setTimeout(clearDisplay, 1000);
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            const keys = '0123456789+-*/.';
+            if (keys.includes(e.key)) appendToDisplay(e.key);
+            if (e.key === 'Enter') calculate();
+            if (e.key === 'Escape') clearDisplay();
+            if (e.key === 'Backspace') deleteLast();
+        });
+    </script>
+</body>
+</html>

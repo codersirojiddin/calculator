@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professional Creative Calculator</title>
     <style>
-
         * {
             margin: 0;
             padding: 0;
@@ -15,10 +14,19 @@
 
         body {
             display: flex;
+            flex-direction: column; /* Footer pastga tushishi uchun */
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             background: #091921;
+        }
+
+        /* Kalkulyator markazda turishi uchun asosiy konteyner */
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .calculator {
@@ -46,7 +54,7 @@
             text-align: right;
             padding: 10px 20px;
             font-size: 2.5rem;
-            color: #00d2ff; /* Neon ko'k */
+            color: #00d2ff; 
             text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
         }
 
@@ -83,14 +91,8 @@
             transform: scale(0.95);
         }
 
-
-        button.operator {
-            color: #00d2ff;
-        }
-
-        button.clear {
-            color: #ff0000;
-        }
+        button.operator { color: #00d2ff; }
+        button.clear { color: #ff0000; }
 
         button.equal {
             grid-column: span 2;
@@ -101,9 +103,8 @@
             box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
         }
 
-        button.equal:active {
-            background: #00b8e6;
-        }
+        button.equal:active { background: #00b8e6; }
+
         .calculator::before {
             content: '';
             position: absolute;
@@ -115,77 +116,75 @@
             opacity: 0.3;
         }
 
+        /* Footer uchun qo'shimcha o'zgaruvchilar (agar sizda yo'q bo'lsa) */
+        :root {
+            --footer-bg: #091921;
+            --border: rgba(255,255,255,0.1);
+            --text-muted: #888;
+            --accent: #00d2ff;
+        }
     </style>
 </head>
 <body>
 
-    <div class="calculator">
-        <div class="display-container">
-            <input type="text" id="display" placeholder="0" readonly>
-        </div>
-        
-        <div class="buttons">
-            <button class="clear" onclick="clearDisplay()">C</button>
-            <button class="operator" onclick="appendToDisplay('/')">/</button>
-            <button class="operator" onclick="appendToDisplay('*')">×</button>
-            <button class="operator" onclick="deleteLast()">⌫</button>
+    <div class="main-content">
+        <div class="calculator">
+            <div class="display-container">
+                <input type="text" id="display" placeholder="0" readonly>
+            </div>
             
-            <button onclick="appendToDisplay('7')">7</button>
-            <button onclick="appendToDisplay('8')">8</button>
-            <button onclick="appendToDisplay('9')">9</button>
-            <button class="operator" onclick="appendToDisplay('-')">−</button>
-            
-            <button onclick="appendToDisplay('4')">4</button>
-            <button onclick="appendToDisplay('5')">5</button>
-            <button onclick="appendToDisplay('6')">6</button>
-            <button class="operator" onclick="appendToDisplay('+')">+</button>
-            
-            <button onclick="appendToDisplay('1')">1</button>
-            <button onclick="appendToDisplay('2')">2</button>
-            <button onclick="appendToDisplay('3')">3</button>
-            <button onclick="appendToDisplay('.')">.</button>
-            
-            <button onclick="appendToDisplay('0')">0</button>
-            <button onclick="appendToDisplay('00')">00</button>
-            <button class="equal" onclick="calculate()">=</button>
+            <div class="buttons">
+                <button class="clear" onclick="clearDisplay()">C</button>
+                <button class="operator" onclick="appendToDisplay('/')">/</button>
+                <button class="operator" onclick="appendToDisplay('*')">×</button>
+                <button class="operator" onclick="deleteLast()">⌫</button>
+                
+                <button onclick="appendToDisplay('7')">7</button>
+                <button onclick="appendToDisplay('8')">8</button>
+                <button onclick="appendToDisplay('9')">9</button>
+                <button class="operator" onclick="appendToDisplay('-')">−</button>
+                
+                <button onclick="appendToDisplay('4')">4</button>
+                <button onclick="appendToDisplay('5')">5</button>
+                <button onclick="appendToDisplay('6')">6</button>
+                <button class="operator" onclick="appendToDisplay('+')">+</button>
+                
+                <button onclick="appendToDisplay('1')">1</button>
+                <button onclick="appendToDisplay('2')">2</button>
+                <button onclick="appendToDisplay('3')">3</button>
+                <button onclick="appendToDisplay('.')">.</button>
+                
+                <button onclick="appendToDisplay('0')">0</button>
+                <button onclick="appendToDisplay('00')">00</button>
+                <button class="equal" onclick="calculate()">=</button>
+            </div>
         </div>
     </div>
-    <footer style="
-    margin-left: 260px; 
-    padding: 30px 60px; 
-    background-color: var(--footer-bg); 
-    border-top: 1px solid var(--border); 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    text-align: center;
-    transition: all 0.2s ease;
-">
-    <div class="footer-info" style="
-        color: var(--text-muted); 
-        font-size: 0.95rem; 
-        font-weight: 500;
-        font-family: 'Plus Jakarta Sans', sans-serif;
-    ">
-        Founder: <strong style="color: var(--accent);">Sirojiddin Yoqubjonov</strong> | 
-        <a href="mailto:codersirojiddin@gmail.com" style="
-            color: #3694ff; 
-            text-decoration: none; 
-            font-weight: 700;
-        ">codersirojiddin@gmail.com</a>
-    </div>
-</footer>
 
-<style>
-    /* Mobil qurilmalar uchun moslashuvchanlik (Responsive) */
-    @media (max-width: 900px) {
-        footer {
-            margin-left: 80px !important;
-            padding: 20px !important;
-            flex-direction: column;
-        }
-    }
-</style>
+    <footer style="
+        width: 100%;
+        padding: 20px; 
+        background-color: var(--footer-bg); 
+        border-top: 1px solid var(--border); 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        text-align: center;
+        transition: all 0.2s ease;
+    ">
+        <div class="footer-info" style="
+            color: var(--text-muted); 
+            font-size: 0.9rem; 
+            font-weight: 500;
+        ">
+            Founder: <strong style="color: var(--accent);">Sirojiddin Yoqubjonov</strong> | 
+            <a href="mailto:codersirojiddin@gmail.com" style="
+                color: #3694ff; 
+                text-decoration: none; 
+                font-weight: 700;
+            ">codersirojiddin@gmail.com</a>
+        </div>
+    </footer>
 
     <script>
         const display = document.getElementById('display');
@@ -205,13 +204,10 @@
 
         function calculate() {
             try {
-
                 let result = eval(display.value);
-                
                 if (result % 1 !== 0) {
                     result = result.toFixed(4);
                 }
-                
                 display.value = result;
             } catch (error) {
                 display.value = "Error";
@@ -229,4 +225,3 @@
     </script>
 </body>
 </html>
-
